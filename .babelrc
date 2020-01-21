@@ -1,13 +1,7 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "node": "6",
-        "uglify": true
-      }
-    }]
-  ],
+  "presets": [],
   "plugins": [
-    "transform-runtime"
+    "@babel/plugin-transform-modules-commonjs",
+    "@babel/plugin-transform-runtime"
   ]
 }

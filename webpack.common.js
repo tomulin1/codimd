@@ -180,7 +180,7 @@ module.exports = {
       'bootstrap'
     ],
     cover: [
-      'babel-polyfill',
+      //'babel-polyfill',
       path.join(__dirname, 'public/js/cover.js')
     ],
     'cover-styles-pack': [
@@ -191,14 +191,14 @@ module.exports = {
       path.join(__dirname, 'node_modules/select2/select2-bootstrap.css')
     ],
     'cover-pack': [
-      'babel-polyfill',
+      //'babel-polyfill',
       'bootstrap-validator',
       'expose-loader?select2!select2',
       'expose-loader?moment!moment',
       path.join(__dirname, 'public/js/cover.js')
     ],
     index: [
-      'babel-polyfill',
+      //'babel-polyfill',
       'script-loader!jquery-ui-resizable',
       'script-loader!codemirror',
       'script-loader!inlineAttachment',
@@ -237,7 +237,7 @@ module.exports = {
       path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'index-pack': [
-      'babel-polyfill',
+      //'babel-polyfill',
       'script-loader!jquery-ui-resizable',
       'bootstrap-validator',
       'expose-loader?jsyaml!js-yaml',
@@ -266,7 +266,7 @@ module.exports = {
       path.join(__dirname, 'public/js/index.js')
     ],
     pretty: [
-      'babel-polyfill',
+      //'babel-polyfill',
       'flowchart.js',
       'imports-loader?Raphael=raphael!js-sequence-diagrams',
       'expose-loader?RevealMarkdown!reveal-markdown',
@@ -284,7 +284,7 @@ module.exports = {
       path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'pretty-pack': [
-      'babel-polyfill',
+      //'babel-polyfill',
       'expose-loader?jsyaml!js-yaml',
       'script-loader!mermaid',
       'expose-loader?moment!moment',
@@ -304,7 +304,7 @@ module.exports = {
       path.join(__dirname, 'public/js/pretty.js')
     ],
     slide: [
-      'babel-polyfill',
+      //'babel-polyfill',
       'bootstrap-tooltip',
       'flowchart.js',
       'imports-loader?Raphael=raphael!js-sequence-diagrams',
@@ -322,7 +322,7 @@ module.exports = {
       path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'slide-pack': [
-      'babel-polyfill',
+      //'babel-polyfill',
       'expose-loader?jQuery!expose-loader?$!jquery',
       'velocity-animate',
       'imports-loader?$=jquery!jquery-mousewheel',
@@ -401,9 +401,18 @@ module.exports = {
       test: /\.mjs$/,
       type: 'javascript/auto'
     }, {
+      // babel takes care of react-transform
       test: /\.js$/,
-      use: [{ loader: 'babel-loader' }],
-      exclude: [/node_modules/, /public\/vendor/]
+      exclude: [/node_modules/, /vendor/], //
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-modules-commonjs']
+          }
+        },
+      ],
     }, {
       test: /\.css$/,
       use: [

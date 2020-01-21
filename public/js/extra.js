@@ -30,6 +30,7 @@ require('prismjs/components/prism-gherkin')
 
 require('./lib/common/login')
 require('../vendor/md-toc')
+require('lodash')
 const viz = new window.Viz()
 const plantumlEncoder = require('plantuml-encoder')
 
@@ -1267,7 +1268,7 @@ const emojijsPlugin = new Plugin(
   // regexp to match emoji shortcodes :something:
   // We generate an universal regex that guaranteed only contains the
   // emojies we have available. This should prevent all false-positives
-  new RegExp(':(' + window.emojify.emojiNames.map((item) => { return RegExp.escape(item) }).join('|') + '):', 'i'),
+  new RegExp(':(' + window.emojify.emojiNames.map((item) => { return _.escapeRegExp(item) }).join('|') + '):', 'i'),
 
   (match, utils) => {
     const emoji = match[1].toLowerCase()
